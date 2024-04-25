@@ -23,8 +23,11 @@ function convert_date_cron () {
         local expiry_date=$(echo "$date_time" | grep -oE 'notAfter=.+' | cut -d '=' -f 2-)
         local cron_date=$(date -d "$expiry_date" +"%M %H %d %m *")
         echo "$cron_date"
-        # Write the cron job to renew the SSL certificate
-        write_crontab "$cron_date"
+        # Check if the cron job already exists
+        if ! grep -q "$cron_date root certbot renew --post-hook 'systemctl reload nginx'" /etc/crontab; then
+            # Write the cron job to renew the SSL certificate
+            write_crontab "$cron_date"
+        fi
 
         # Remove the cron job after certificate renewal if necessary
         remove_cron_after_renew "$expiry_date"
