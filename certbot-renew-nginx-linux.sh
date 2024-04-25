@@ -30,7 +30,7 @@ function convert_date_cron () {
         fi
 
         # Remove the cron job after certificate renewal if necessary
-        remove_cron_after_renew "$expiry_date"
+#        remove_cron_after_renew "$expiry_date"
     done
 }
 
