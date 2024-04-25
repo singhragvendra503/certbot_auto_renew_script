@@ -35,7 +35,7 @@ function convert_date_cron () {
 # Function to write the cron job to renew the SSL certificate
 function write_crontab () {
     local cron_date=$1
-    echo "$cron_date root certbot renew --post-hook 'systemctl reload nginx'" >> /etc/crontab
+    echo "$cron_date root certbot renew --post-hook 'systemctl reload apache2'" >> /etc/crontab
 }
 
 # Function to remove the cron job after certificate renewal
